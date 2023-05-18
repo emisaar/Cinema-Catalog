@@ -1,0 +1,1 @@
+export { getPopular, getTopRated, getNowPlaying, getMovieById, getRecommendations } from "./movies/getMovies";

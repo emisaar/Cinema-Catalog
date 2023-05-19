@@ -45,12 +45,7 @@ const MoviesSlider: React.FC<MoviesSliderProp> = ({
           {titleShows}
           <ArrowForwardIos sx={{
             fontSize: '36px',
-            paddingTop: '16px',
-            color: arrowColor,
-            cursor: cursorStyle,
-            '&:hover': {
-                color: '#203444'
-            }
+            paddingTop: '16px'
           }} />
         </SliderHeader>
       </SliderLink>

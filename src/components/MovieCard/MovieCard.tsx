@@ -12,8 +12,10 @@ import {
   ShowTitle,
 } from "./styles";
 import { Pill } from "components/Pill";
+import { Link } from "react-router-dom";
 
 const MovieCard: React.FC<MovieCardProp> = ({
+  id,
   path,
   title,
   voteAverage,
@@ -32,25 +34,27 @@ const MovieCard: React.FC<MovieCardProp> = ({
   };
 
   const getColor = (rating: number) => {
-    if(rating >= 8){
+    if (rating >= 8) {
       return '#74B566';
-    }else if (rating >= 7){
+    } else if (rating >= 7) {
       return '#efca54';
     }
   }
-  
+
   return (
     <ShowBox>
-      <ImageContainer>
-        <ShowThumb src={poster} />
-      </ImageContainer>
-      <InfoShow>
-        <ShowTitle>
-          <Pill genre={getGenre(genreId)} pillColor={getColor(voteAverage)} />
-          <ShowLabelTitle>{title}</ShowLabelTitle>
-          <ShowCalification>* {voteAverage} / 10</ShowCalification>
-        </ShowTitle>
-      </InfoShow>
+      <Link to={`/about-movie/${id}`}>
+        <ImageContainer>
+          <ShowThumb src={poster} />
+        </ImageContainer>
+        <InfoShow>
+          <ShowTitle>
+            <Pill genre={getGenre(genreId)} pillColor={getColor(voteAverage)} />
+            <ShowLabelTitle>{title}</ShowLabelTitle>
+            <ShowCalification>* {voteAverage} / 10</ShowCalification>
+          </ShowTitle>
+        </InfoShow>
+      </Link>
     </ShowBox>
   );
 };

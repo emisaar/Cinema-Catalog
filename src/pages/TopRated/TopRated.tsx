@@ -3,6 +3,7 @@ import { MovieCard } from 'components/MovieCard';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getTopRated } from 'services';
+import { CatalogContainer, PageContainer, PageHeader } from './styles';
 
 const TopRated = () => {
   const [topRatedMovies, setTopRatedMovies] = useState<any[]>([]);
@@ -10,15 +11,15 @@ const TopRated = () => {
 
   const getTopRatedMovies = async () => {
     await getTopRated()
-    .then((res) => {
-      if (res && res.data) {
-        // console.log(res.data, 'res');
-        setTopRatedMovies(res.data.results);
-      }
-    })
-    .catch((err) => {
-      console.log(err, 'err');
-    });
+      .then((res) => {
+        if (res && res.data) {
+          // console.log(res.data, 'res');
+          setTopRatedMovies(res.data.results);
+        }
+      })
+      .catch((err) => {
+        console.log(err, 'err');
+      });
     setLoading(false);
   }
 
@@ -28,21 +29,22 @@ const TopRated = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Top Rated Movies</h1>
-      {!loading ? (
-        topRatedMovies.map((movie) => (
-          <Link to={`/about-movie/${movie.id}`}>
+    <PageContainer>
+      <PageHeader>Top Rated</PageHeader>
+      <CatalogContainer>
+        {!loading ? (
+          topRatedMovies.map((movie) => (
             <MovieCard
               key={movie.id}
+              id={movie.id}
               path={movie.poster_path}
               title={movie.title}
               voteAverage={movie.vote_average}
               genreId={movie.genre_ids[0]}
             />
-          </Link>
-        ))) : (<CircularProgress />)}
-    </div>
+          ))) : (<CircularProgress />)}
+      </CatalogContainer>
+    </PageContainer>
   )
 }
 

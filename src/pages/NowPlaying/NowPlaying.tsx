@@ -3,6 +3,7 @@ import { MovieCard } from 'components/MovieCard';
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getNowPlaying } from 'services';
+import { CatalogContainer, PageContainer, PageHeader } from './styles';
 
 const NowPlaying = () => {
   const [nowPlayingMovies, setNowPlayingMovies] = useState<any[]>([]);
@@ -28,21 +29,22 @@ const NowPlaying = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Now Playing Movies</h1>
-      {!loading ? (
-        nowPlayingMovies.map((movie) => (
-          <Link to={`/about-movie/${movie.id}`}>
+    <PageContainer>
+      <PageHeader>Now Playing</PageHeader>
+      <CatalogContainer>
+        {!loading ? (
+          nowPlayingMovies.map((movie) => (
             <MovieCard
               key={movie.id}
+              id={movie.id}
               path={movie.poster_path}
               title={movie.title}
               voteAverage={movie.vote_average}
               genreId={movie.genre_ids[0]}
             />
-          </Link>
-        ))) : (<CircularProgress />)}
-    </div>
+          ))) : (<CircularProgress />)}
+      </CatalogContainer>
+    </PageContainer>
   )
 }
 

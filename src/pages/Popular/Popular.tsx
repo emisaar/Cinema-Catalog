@@ -3,6 +3,7 @@ import { getPopular } from 'services';
 import { MovieCard } from 'components/MovieCard';
 import { CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { CatalogContainer, PageContainer, PageHeader } from './styles';
 // import { buildUrl } from 'utils/api';
 
 const Popular = () => {
@@ -30,21 +31,22 @@ const Popular = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Popular Movies</h1>
-      {!loading ? (
-        popularMovies.map((movie) => (
-          <Link to={`/about-movie/${movie.id}`}>
+    <PageContainer>
+      <PageHeader>Popular</PageHeader>
+      <CatalogContainer>
+        {!loading ? (
+          popularMovies.map((movie) => (
             <MovieCard
               key={movie.id}
+              id={movie.id}
               path={movie.poster_path}
               title={movie.title}
               voteAverage={movie.vote_average}
               genreId={movie.genre_ids[0]}
             />
-          </Link>
-        ))) : (<CircularProgress />)}
-    </div>
+          ))) : (<CircularProgress />)}
+      </CatalogContainer>
+    </PageContainer>
   )
 }
 

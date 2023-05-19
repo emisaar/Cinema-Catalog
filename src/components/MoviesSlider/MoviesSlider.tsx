@@ -34,6 +34,10 @@ const MoviesSlider: React.FC<MoviesSliderProp> = ({
     getMovies();
   }, [movieApiUrl]);
 
+  const isDefaultPath = linkToPath === '#';
+  const arrowColor = isDefaultPath ? '#203444' : undefined;
+  const cursorStyle = isDefaultPath ? 'auto' : 'pointer';
+
   return (
     <SliderWrapper>
       <SliderLink to={linkToPath}>
@@ -41,7 +45,12 @@ const MoviesSlider: React.FC<MoviesSliderProp> = ({
           {titleShows}
           <ArrowForwardIos sx={{
             fontSize: '36px',
-            paddingTop: '16px'
+            paddingTop: '16px',
+            color: arrowColor,
+            cursor: cursorStyle,
+            '&:hover': {
+                color: '#203444'
+            }
           }} />
         </SliderHeader>
       </SliderLink>
@@ -52,6 +61,8 @@ const MoviesSlider: React.FC<MoviesSliderProp> = ({
             movies.map((movie) => (
               <Link to={`${cardPath}/${movie.id}`} key={movie.id}>
                 <MovieCard
+                  key={movie.id}
+                  id={movie.id}
                   path={movie.poster_path}
                   title={movie.title}
                   voteAverage={movie.vote_average}

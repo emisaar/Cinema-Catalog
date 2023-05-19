@@ -1,10 +1,11 @@
-import { AccessTimeFilled, Favorite, InsertInvitation, PeopleAlt, Poll, Star } from '@mui/icons-material';
+import { AccessTimeFilled, Favorite, HeartBroken, InsertInvitation, PeopleAlt, PlayCircle, Poll, Star } from '@mui/icons-material';
 import { Button, CircularProgress } from '@mui/material';
 import { MoviesSlider } from 'components/MoviesSlider';
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getMovieById } from 'services';
 import { buildUrlRecommended } from 'utils/api';
+import { GenreContainer, GenreItem, GenreSpan, GenreTitle, MainContainer, MovieButtonsContainer, MovieDescriptionBody, MovieDescriptionContainer, MovieDescriptionTagline, MovieImage, MovieInfo, MovieInfoSpan, MovieInfoText, MovieTitle, TopContainer } from './styles';
 // import * as localStorage from 'local-storage';
 
 const AboutMovie = () => {
@@ -46,13 +47,8 @@ const AboutMovie = () => {
     useEffect(() => {
         setLoading(true);
         getMovie();
-        // setTimeout(() => getMovie(), 1000);
+        setTimeout(() => getMovie(), 1000);
     }, [movieId]);
-
-    // useEffect(() => {
-    //     const isFav = favorites.hasOwnProperty(movieId);
-    //     setIsFavorite(isFav);
-    // }, [favorites, id]);
 
     const addFavorite = () => {
         const isDuplicate = favorites.includes(movieId);
@@ -85,81 +81,118 @@ const AboutMovie = () => {
 
 
     return (
-        <div>
-            <div className="show-content">
-                {loading ? (
-                    <CircularProgress />
-                ) : (
+        <MainContainer className="show-content">
+            {loading ? (
+                <CircularProgress sx={{ fontSize: 'large' }} />
+            ) : (
+                <TopContainer>
+                    <MovieImage className="image-fluid" alt={id} src={poster} />
                     <div>
-                        <div>
-                            <img className="image-fluid" alt={id} src={poster} />
-                        </div>
-                        <div>
-                            <div className="show-det-title">
-                                <h2>{movie.title}</h2>
-                            </div>
-                            <div className="show-det-info">
-                                <span>
-                                    <PeopleAlt className="my-icons" />
+                        <MovieTitle>{movie.title}</MovieTitle>
+                        <MovieButtonsContainer>
+                            <Button
+                                sx={{
+                                    backgroundColor: "#fff",
+                                    color: "#000",
+                                    '&:hover': {
+                                        backgroundColor: "#0066CC",
+                                        color: "#fff"
+                                    }
+                                }
+                                }
+                                variant="contained"
+                                startIcon={<PlayCircle />}>
+                                Play
+                            </Button>
+                            
+                            {favorites.includes(movieId) ? (
+                                <Button
+                                    sx={{
+                                        backgroundColor: "#CC0000",
+                                        '&:hover': {
+                                            backgroundColor: "#970000",
+                                            color: "#fff"
+                                        }
+                                    }}
+                                    variant="contained"
+                                    onClick={() => removeFavorite()}
+                                    startIcon={<HeartBroken />}>
+                                    Favorites
+                                </Button>
+                            ) : (
+                                <Button
+                                    sx={{
+                                        backgroundColor: "#00994C",
+                                    }}
+                                    variant="contained"
+                                    color="success"
+                                    onClick={() => addFavorite()}
+                                    startIcon={<Favorite />}>
+                                    Favorites
+                                </Button>
+                            )}
+                        </MovieButtonsContainer>
+                        <hr />
+                        <MovieInfo>
+                            <MovieInfoSpan>
+                                <PeopleAlt />
+                                <MovieInfoText>
                                     {movie.adult ? '18+' : '18-'}
-                                </span>
-                                <span>
-                                    <AccessTimeFilled />
+                                </MovieInfoText>
+                            </MovieInfoSpan>
+                            <MovieInfoSpan>
+                                <AccessTimeFilled />
+                                <MovieInfoText>
                                     {movie.runtime} min.
-                                </span>
-                                <span>
-                                    <InsertInvitation />
+                                </MovieInfoText>
+                            </MovieInfoSpan>
+                            <MovieInfoSpan>
+                                <InsertInvitation />
+                                <MovieInfoText>
                                     {movie.release_date && movie.release_date.split('-')[0]}
-                                </span>
-                                <span>
-                                    <Star />
+                                </MovieInfoText>
+                            </MovieInfoSpan>
+                            <MovieInfoSpan>
+                                <Star />
+                                <MovieInfoText>
                                     {movie.vote_average}
-                                </span>
-                                <span>
-                                    <Poll />
+                                </MovieInfoText>
+                            </MovieInfoSpan>
+                            <MovieInfoSpan>
+                                <Poll />
+                                <MovieInfoText>
                                     {movie.vote_count}
-                                </span>
-                            </div>
-                            <div className="show-det-desc">
-                                <p>
-                                    "{movie.tagline}"
-                                    <br />
-                                    {movie.overview}
-                                </p>
-                            </div>
-                            <div className="show-det-extra">
-                                <div className="extra-block">
-                                    <h5 className="extra-title">Genres</h5>
-                                    {!loading && movie.genres && movie.genres.map((genre: { id: number; name: string }) => (
-                                        <div className="show-label-det" key={genre.id}>
-                                            {genre.name}
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="extra-block">
-                                    <h5 className="extra-title">Favorite</h5>
-                                    {isFavorite ? (
-                                        <Button variant="contained" color="error" onClick={() => removeFavorite()} startIcon={<Favorite />}>
-                                            Remove from Favorites
-                                        </Button>
-                                    ) : (
-                                        <Button variant="contained" color="success" onClick={() => addFavorite()} startIcon={<Favorite />}>
-                                            Add to Favorites
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>)}
-                <div className="show-image-detail-12">
-                    <MoviesSlider
-                        titleShows={'Recommendations'}
-                        movieApiUrl={buildUrlRecommended(movieId)}
-                        endpoint={'/about-movie'}
-                    />
-                </div>
+                                </MovieInfoText>
+                            </MovieInfoSpan>
+                        </MovieInfo>
+                        <MovieDescriptionContainer>
+                            <MovieDescriptionTagline>
+                                "{movie.tagline !== '' ? movie.tagline : 'No tagline available'}"
+                            </MovieDescriptionTagline>
+                            <MovieDescriptionBody>
+                                {movie.overview}
+                            </MovieDescriptionBody>
+                        </MovieDescriptionContainer>
+                        <GenreContainer>
+                            <GenreTitle>Genres</GenreTitle>
+                            <GenreSpan>
+                                {!loading && movie.genres && movie.genres.map((genre: { id: number; name: string }) => (
+                                    <GenreItem className="show-label-det" key={genre.id}>
+                                        {genre.name}
+                                    </GenreItem>
+                                ))}
+                            </GenreSpan>
+                        </GenreContainer>
+                    </div>
+                </TopContainer>)}
+            <div className="show-image-detail-12">
+                <MoviesSlider
+                    titleShows={'Recommendations'}
+                    movieApiUrl={buildUrlRecommended(movieId)}
+                    endpoint={'/about-movie'}
+                />
             </div>
-        </div >
+        </MainContainer>
     )
 }
 

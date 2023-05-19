@@ -3,6 +3,7 @@ import { IMAGE_SOURCE } from "constants/moviesMock";
 import genres from "constants/genres.json";
 import { MovieCardProp } from "./types";
 import {
+  CalificationText,
   ImageContainer,
   InfoShow,
   ShowBox,
@@ -13,6 +14,7 @@ import {
 } from "./styles";
 import { Pill } from "components/Pill";
 import { Link } from "react-router-dom";
+import { Star } from "@mui/icons-material";
 
 const MovieCard: React.FC<MovieCardProp> = ({
   id,
@@ -21,7 +23,13 @@ const MovieCard: React.FC<MovieCardProp> = ({
   voteAverage,
   genreId,
 }) => {
-  const poster = IMAGE_SOURCE + path;
+  const DEFAULT_PLACEHOLDER_IMAGE = 'https://www.movienewz.com/img/films/poster-holder.jpg';
+  const DEFAULT_IMAGE_POSTER = 'https://image.tmdb.org/t/p/w500';
+
+  const poster =
+    path == null
+      ? DEFAULT_PLACEHOLDER_IMAGE
+      : DEFAULT_IMAGE_POSTER + path;
 
   const getGenre = (genreId: number) => {
     const key: any = Object.keys(genres.genres).find(
@@ -51,7 +59,12 @@ const MovieCard: React.FC<MovieCardProp> = ({
           <ShowTitle>
             <Pill genre={getGenre(genreId)} pillColor={getColor(voteAverage)} />
             <ShowLabelTitle>{title}</ShowLabelTitle>
-            <ShowCalification>* {voteAverage} / 10</ShowCalification>
+            <ShowCalification>
+              <Star sx={{ fontSize: "18px", paddingTop: "2px"}}/>
+              <CalificationText>
+                {voteAverage} / 10
+              </CalificationText>
+            </ShowCalification>
           </ShowTitle>
         </InfoShow>
       </Link>

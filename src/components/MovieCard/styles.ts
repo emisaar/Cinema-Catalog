@@ -79,12 +79,14 @@ export const ShowLabelTitle = styled.p`
 `;
 
 export const ShowCalification = styled.p`
-  margin-right: 10px;
-  text-shadow: none;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  display: table;
-  text-transform: uppercase;
-  line-height: 4px;
+font-family: 'Montserrat', sans-serif;
+font-size: 14px;
+margin: 20px 10px 0 0;
+display: flex;
+flex-direction: row;
+gap: 8px;
+`;
+
+export const CalificationText = styled.span`
+  margin: 0;
 `;

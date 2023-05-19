@@ -35,17 +35,24 @@ const MoviesSlider: React.FC<MoviesSliderProp> = ({
   }, [movieApiUrl]);
 
   const isDefaultPath = linkToPath === '#';
+  const labelColor = isDefaultPath ? '#fff' : undefined;
   const arrowColor = isDefaultPath ? '#203444' : undefined;
   const cursorStyle = isDefaultPath ? 'auto' : 'pointer';
 
   return (
     <SliderWrapper>
       <SliderLink to={linkToPath}>
-        <SliderHeader>
+        <SliderHeader
+          style={{
+            color: labelColor,
+            cursor: cursorStyle
+          }}
+        >
           {titleShows}
           <ArrowForwardIos sx={{
             fontSize: '36px',
-            paddingTop: '16px'
+            paddingTop: '16px',
+            color: arrowColor
           }} />
         </SliderHeader>
       </SliderLink>

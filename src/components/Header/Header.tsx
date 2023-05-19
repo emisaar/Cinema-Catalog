@@ -13,7 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { BoxStyled } from "./styles";
+import { BoxStyled, LinkToStyled } from "./styles";
 import { Link } from "react-router-dom";
 import { ROUTES } from "routes/constants";
 import { hover } from "@testing-library/user-event/dist/hover";
@@ -28,11 +28,11 @@ interface Props {
 
 const drawerWidth = 240;
 const navItems = [
-  {id: 1, name: "HOME", path: ROUTES.HOME},
-  {id: 2, name: "POPULAR", path: ROUTES.POPULAR},
-  {id: 3, name: "TOP RATED", path: ROUTES.TOP_RATED},
-  {id: 4, name: "NOW PLAYING", path: ROUTES.NOW_PLAYING},
-  {id: 5, name: "MY FAVORITES", path: ROUTES.MY_FAVORITES}
+  { id: 1, name: "HOME", path: ROUTES.HOME },
+  { id: 2, name: "POPULAR", path: ROUTES.POPULAR },
+  { id: 3, name: "TOP RATED", path: ROUTES.TOP_RATED },
+  { id: 4, name: "NOW PLAYING", path: ROUTES.NOW_PLAYING },
+  { id: 5, name: "MY FAVORITES", path: ROUTES.MY_FAVORITES }
 ];
 
 export default function Header(props: Props) {
@@ -42,6 +42,13 @@ export default function Header(props: Props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  const [isClicked, setIsClicked] = React.useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true);
+  };
+
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -67,7 +74,7 @@ export default function Header(props: Props) {
   return (
     <BoxStyled>
       <CssBaseline />
-      <AppBar component="nav" style={{backgroundColor: "black "}}>
+      <AppBar component="nav" style={{ backgroundColor: "#182942" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -81,14 +88,32 @@ export default function Header(props: Props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1, display: {
+                xs: "none", sm: "block", '&:hover': {
+                  color: '#FFD634',
+                  fontWeight: 'bold'
+                },
+              }
+            }}
+            style={{ fontWeight: "bold", fontFamily: "Montserrat, sans-serif" }}
           >
-            MOVIES TC3005B
+            <LinkToStyled to={ROUTES.HOME}>
+              MOVIES TC3005B
+            </LinkToStyled>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Link key={item.id} to={item.path}>
-                <Button sx={{ color: "#fff" }}>
+                <Button sx={{
+                  color: '#fff',
+                  '&:hover': {
+                    color: '#FFD634',
+                    fontWeight: 'bold'
+                  },
+                }}
+                  onClick={handleClick}
+                >
                   {item.name}
                 </Button>
               </Link>

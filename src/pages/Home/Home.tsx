@@ -13,19 +13,19 @@ const Home = () => {
         titleShows='Popular'
         movieApiUrl={buildUrl('popular')}
         endpoint={'/about-movie'}
-        viewOn={false}
+        linkToPath='/popular'
       />
       <MoviesSlider
         titleShows='Top Rated'
         movieApiUrl={buildUrl('top_rated')}
         endpoint={'/about-movie'}
-        viewOn={false}
+        linkToPath='/top-rated'
       />
       <MoviesSlider
         titleShows='Now Playing'
         movieApiUrl={buildUrl('now_playing')}
         endpoint={'/about-movie'}
-        viewOn={false}
+        linkToPath='/now-playing'
       />
     </HomeWrapper>
   )

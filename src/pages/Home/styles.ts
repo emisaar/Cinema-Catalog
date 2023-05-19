@@ -5,4 +5,5 @@ export const HomeWrapper = styled.div`
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    background-color: #203444;
 `;

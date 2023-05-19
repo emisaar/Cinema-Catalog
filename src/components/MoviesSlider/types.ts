@@ -4,5 +4,5 @@ export interface MoviesSliderProp {
     titleShows: string;
     movieApiUrl: string;
     endpoint: string;
-    viewOn: boolean;
+    linkToPath?: string;
 }

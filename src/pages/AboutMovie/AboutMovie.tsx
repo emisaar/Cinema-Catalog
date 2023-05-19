@@ -177,7 +177,6 @@ const AboutMovie = () => {
                                 titleShows={'Recommendations'}
                                 movieApiUrl={buildUrlRecommended(movieId)}
                                 endpoint={'/about-movie'}
-                                viewOn={false}
                             />
                         </div>
                     </div>

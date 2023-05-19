@@ -4,10 +4,11 @@ import { movies } from "constants/moviesMock";
 import { Link } from 'react-router-dom';
 import { MoviesSlider } from 'components/MoviesSlider';
 import { buildUrl } from 'utils/api';
+import { HomeWrapper } from './styles';
 
 const Home = () => {
   return (
-    <div>
+    <HomeWrapper>
       <MoviesSlider
         titleShows='Popular'
         movieApiUrl={buildUrl('popular')}
@@ -26,8 +27,7 @@ const Home = () => {
         endpoint={'/about-movie'}
         viewOn={false}
       />
-
-    </div>
+    </HomeWrapper>
   )
 }
 

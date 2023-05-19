@@ -7,6 +7,7 @@ import { CircularProgress } from '@mui/material';
 import { getRecommendations } from 'services';
 import axios from 'axios';
 import httpInstance from 'services/httpInstance';
+import { SliderComponent, SliderContainer, SliderHeader, SliderWrapper } from './styles';
 
 const MoviesSlider: React.FC<MoviesSliderProp> = ({
     titleShows,
@@ -35,21 +36,25 @@ const MoviesSlider: React.FC<MoviesSliderProp> = ({
     }, [movieApiUrl]);
 
     return (
-        <div>
-            <h1>{titleShows}</h1>
-            {!loading ? (
-                movies.map((movie) => (
-                    <Link to={`${cardPath}/${movie.id}`}>
-                        <MovieCard
-                            key={movie.id}
-                            path={movie.poster_path}
-                            title={movie.title}
-                            voteAverage={movie.vote_average}
-                            genreId={movie.genre_ids[0]}
-                        />
-                    </Link>
-                ))) : (<CircularProgress />)}
-        </div>
+        <SliderWrapper>
+            <SliderHeader>{titleShows}</SliderHeader>
+            <SliderContainer>
+                <SliderComponent>
+                {!loading ? (
+                    movies.map((movie) => (
+                        <Link to={`${cardPath}/${movie.id}`}>
+                            <MovieCard
+                                key={movie.id}
+                                path={movie.poster_path}
+                                title={movie.title}
+                                voteAverage={movie.vote_average}
+                                genreId={movie.genre_ids[0]}
+                            />
+                        </Link>
+                    ))) : (<CircularProgress />)}
+                </SliderComponent>
+            </SliderContainer>
+        </SliderWrapper>
     );
 };
 

@@ -29,6 +29,7 @@ const NowPlaying = () => {
 
   return (
     <div>
+      <h1>Now Playing Movies</h1>
       {!loading ? (
         nowPlayingMovies.map((movie) => (
           <Link to={`/about-movie/${movie.id}`}>

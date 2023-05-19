@@ -3,8 +3,9 @@ import { Button, CircularProgress } from '@mui/material';
 import { MoviesSlider } from 'components/MoviesSlider';
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { getMovieById, getRecommendations } from 'services';
-import { buildUrl, buildUrlRecommended } from 'utils/api';
+import { getMovieById } from 'services';
+import { buildUrlRecommended } from 'utils/api';
+// import * as localStorage from 'local-storage';
 
 const AboutMovie = () => {
     const { id } = useParams<{ id: string }>();
@@ -12,8 +13,12 @@ const AboutMovie = () => {
 
     console.log('Movie ID: ', movieId);
 
+    const favoritesFromStorage = localStorage.getItem('favorites');
+    const localFavs = favoritesFromStorage ? JSON.parse(favoritesFromStorage) : [];
+
     const [movie, setMovie] = React.useState<any>({});
     const [loading, setLoading] = React.useState(false);
+    const [favorites, setFavorites] = React.useState<string[]>(localFavs);
     const [isFavorite, setIsFavorite] = React.useState(false);
 
     const DEFAULT_PLACEHOLDER_IMAGE = 'https://www.movienewz.com/img/films/poster-holder.jpg';
@@ -44,6 +49,40 @@ const AboutMovie = () => {
         // setTimeout(() => getMovie(), 1000);
     }, [movieId]);
 
+    // useEffect(() => {
+    //     const isFav = favorites.hasOwnProperty(movieId);
+    //     setIsFavorite(isFav);
+    // }, [favorites, id]);
+
+    const addFavorite = () => {
+        const isDuplicate = favorites.includes(movieId);
+
+        if (!isDuplicate) {
+            const updatedFavorites = [...favorites, movieId];
+            setFavorites(updatedFavorites);
+            localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+            console.log('Favorites: ', updatedFavorites);
+        }
+        setIsFavorite(true);
+    }
+
+    const removeFavorite = () => {
+        // Check if the data to be removed exists in the array
+        const index = favorites.indexOf(movieId);
+        if (index !== -1) {
+          // Remove the data from the array
+          favorites.splice(index, 1);
+      
+          // Store the updated array back in Local Storage
+          localStorage.setItem('favorites', JSON.stringify(favorites));
+      
+          // Update the state of favorites
+          setFavorites(favorites);
+        }
+      
+        setIsFavorite(false);
+      };
+      
 
     return (
         <div>
@@ -118,25 +157,14 @@ const AboutMovie = () => {
                                                 <div className="extra-block">
                                                     <h5 className="extra-title">Favorite</h5>
                                                     {isFavorite ? (
-                                                        <Button variant="contained" color="error" onClick={() => setIsFavorite(false)} startIcon={<Favorite />}>
+                                                        <Button variant="contained" color="error" onClick={() => removeFavorite()} startIcon={<Favorite />}>
                                                             Remove from Favorites
                                                         </Button>
                                                     ) : (
-                                                        <Button variant="contained" color="success" onClick={() => setIsFavorite(true)} startIcon={<Favorite />}>
+                                                        <Button variant="contained" color="success" onClick={() => addFavorite()} startIcon={<Favorite />}>
                                                             Add to Favorites
                                                         </Button>
                                                     )}
-                                                    {/* {isFavorite ? (
-                          <button className="button-favorite-add" onClick={removeFavorite}>
-                            <FontAwesomeIcon icon="heart-broken" className="my-icons" />
-                            Remove from Favorites
-                          </button>
-                        ) : (
-                          <button className="button-favorite-remove" onClick={addFavorite}>
-                            <FontAwesomeIcon icon="heart" className="my-icons" />
-                            Add to Favorites
-                          </button>
-                        )} */}
                                                 </div>
                                             </div>
                                         </div>

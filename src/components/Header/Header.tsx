@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import { BoxStyled } from "./styles";
 import { Link } from "react-router-dom";
 import { ROUTES } from "routes/constants";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 interface Props {
   /**
@@ -66,7 +67,7 @@ export default function Header(props: Props) {
   return (
     <BoxStyled>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" style={{backgroundColor: "black "}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -82,7 +83,7 @@ export default function Header(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            MOVIES DB 3000
+            MOVIES TC3005B
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
@@ -115,7 +116,7 @@ export default function Header(props: Props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" sx={{ p: 3 }} style={{ padding: 0 }}>
         <Toolbar />
       </Box>
     </BoxStyled>

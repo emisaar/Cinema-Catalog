@@ -29,6 +29,7 @@ const TopRated = () => {
 
   return (
     <div>
+      <h1>Top Rated Movies</h1>
       {!loading ? (
         topRatedMovies.map((movie) => (
           <Link to={`/about-movie/${movie.id}`}>

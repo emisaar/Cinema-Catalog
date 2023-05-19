@@ -31,6 +31,7 @@ const Popular = () => {
 
   return (
     <div>
+      <h1>Popular Movies</h1>
       {!loading ? (
         popularMovies.map((movie) => (
           <Link to={`/about-movie/${movie.id}`}>

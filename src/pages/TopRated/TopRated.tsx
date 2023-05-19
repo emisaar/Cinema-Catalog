@@ -4,10 +4,27 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getTopRated } from 'services';
 import { CatalogContainer, PageContainer, PageHeader } from './styles';
+import { SearchBox } from 'components/SearchBox';
 
 const TopRated = () => {
   const [topRatedMovies, setTopRatedMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [searchField, setSearchField] = useState<string>('');
+  const [filteredMovies, setFilteredMonsters] = useState<any[]>([]); // [value, setValue
+
+  useEffect(() => {
+    const filteredMovies = topRatedMovies.filter((movie) => {
+      return movie.title.toLowerCase().includes(searchField);
+    });
+
+    setFilteredMonsters(filteredMovies);
+  }, [searchField, topRatedMovies]);
+
+  const onSearchChange = (event: any) => {
+    const searchFieldString = event.target.value.toLowerCase();
+    setSearchField(searchFieldString);
+  }
 
   const getTopRatedMovies = async () => {
     await getTopRated()
@@ -31,6 +48,9 @@ const TopRated = () => {
   return (
     <PageContainer>
       <PageHeader>Top Rated</PageHeader>
+      <SearchBox
+        onChangeHandler={onSearchChange}
+      />
       <CatalogContainer>
         {!loading ? (
           topRatedMovies.map((movie) => (

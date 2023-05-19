@@ -2,13 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { getPopular } from 'services';
 import { MovieCard } from 'components/MovieCard';
 import { CircularProgress } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { CatalogContainer, PageContainer, PageHeader } from './styles';
-// import { buildUrl } from 'utils/api';
+import { CatalogContainer, PageContainer, PageHeader, } from './styles';
+import { SearchBox } from 'components/SearchBox';
 
 const Popular = () => {
   const [popularMovies, setPopularMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [searchField, setSearchField] = useState<string>('');
+  const [filteredMovies, setFilteredMonsters] = useState<any[]>([]); // [value, setValue
+
+  useEffect(() => {
+    const filteredMovies = popularMovies.filter((movie) => {
+      return movie.title.toLowerCase().includes(searchField);
+    });
+
+    setFilteredMonsters(filteredMovies);
+  }, [searchField, popularMovies]);
+
+  const onSearchChange = (event: any) => {
+    const searchFieldString = event.target.value.toLowerCase();
+    setSearchField(searchFieldString);
+  }
 
   const getPopularMovies = async () => {
     // const api = buildUrl('popular');
@@ -27,15 +42,18 @@ const Popular = () => {
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => getPopularMovies(), 1000);
+    setTimeout(() => getPopularMovies(), 10000);
   }, []);
 
   return (
     <PageContainer>
       <PageHeader>Popular</PageHeader>
+      <SearchBox
+        onChangeHandler={onSearchChange}
+      />
       <CatalogContainer>
         {!loading ? (
-          popularMovies.map((movie) => (
+          filteredMovies.map((movie) => (
             <MovieCard
               key={movie.id}
               id={movie.id}

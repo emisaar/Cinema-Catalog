@@ -31,6 +31,11 @@ export const MovieButtonsContainer = styled.div`
     margin: 10px 0;
 `;
 
+export const MovieHr = styled.hr`
+    border: 1px solid #E0E0E0;
+    margin: 0 30px 0 0;
+`;
+
 export const MovieInfo = styled.div`
     display: flex;
     flex-direction: row;

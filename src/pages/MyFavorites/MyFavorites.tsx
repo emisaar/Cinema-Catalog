@@ -31,7 +31,7 @@ const MyFavorites = () => {
 
   return (
     <PageContainer>
-      <PageHeader>Top Rated</PageHeader>
+      <PageHeader>My Favorites</PageHeader>
       <CatalogContainer>
         {!loading ? (
           movies.map((movie) => (

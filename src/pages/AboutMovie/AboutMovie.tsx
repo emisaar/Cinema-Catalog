@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getMovieById } from 'services';
 import { buildUrlRecommended } from 'utils/api';
-import { GenreContainer, GenreItem, GenreSpan, GenreTitle, MainContainer, MovieButtonsContainer, MovieDescriptionBody, MovieDescriptionContainer, MovieDescriptionTagline, MovieImage, MovieInfo, MovieInfoSpan, MovieInfoText, MovieTitle, TopContainer } from './styles';
+import { GenreContainer, GenreItem, GenreSpan, GenreTitle, MainContainer, MovieButtonsContainer, MovieDescriptionBody, MovieDescriptionContainer, MovieDescriptionTagline, MovieHr, MovieImage, MovieInfo, MovieInfoSpan, MovieInfoText, MovieTitle, TopContainer } from './styles';
 // import * as localStorage from 'local-storage';
 
 const AboutMovie = () => {
@@ -132,7 +132,7 @@ const AboutMovie = () => {
                                 </Button>
                             )}
                         </MovieButtonsContainer>
-                        <hr />
+                        <MovieHr />
                         <MovieInfo>
                             <MovieInfoSpan>
                                 <PeopleAlt />

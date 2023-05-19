@@ -1,11 +1,8 @@
 import { MovieCard } from 'components/MovieCard';
-import { MovieCardProp } from 'components/MovieCard/types';
 import React, { useEffect } from 'react';
 import { MoviesSliderProp } from './types';
 import { Link, useParams } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import { getRecommendations } from 'services';
-import axios from 'axios';
 import httpInstance from 'services/httpInstance';
 import { SliderComponent, SliderContainer, SliderHeader, SliderHr, SliderLink, SliderWrapper } from './styles';
 import { ArrowForwardIos } from '@mui/icons-material';
@@ -18,8 +15,6 @@ const MoviesSlider: React.FC<MoviesSliderProp> = ({
 }) => {
   const [movies, setMovies] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(false);
-  const { id } = useParams<{ id: string }>();
-  const movieId = id || 'No ID available';
 
   const cardPath = endpoint;
 

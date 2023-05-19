@@ -4,10 +4,28 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getNowPlaying } from 'services';
 import { CatalogContainer, PageContainer, PageHeader } from './styles';
+import { SearchBox } from 'components/SearchBox';
 
 const NowPlaying = () => {
   const [nowPlayingMovies, setNowPlayingMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [searchField, setSearchField] = useState<string>('');
+  const [filteredMovies, setFilteredMonsters] = useState<any[]>([]); // [value, setValue
+
+  useEffect(() => {
+    const filteredMovies = nowPlayingMovies.filter((movie) => {
+      return movie.title.toLowerCase().includes(searchField);
+    });
+
+    setFilteredMonsters(filteredMovies);
+  }, [searchField, nowPlayingMovies]);
+
+  const onSearchChange = (event: any) => {
+    const searchFieldString = event.target.value.toLowerCase();
+    setSearchField(searchFieldString);
+  }
+
 
   const getNowPlayingMovies = async () => {
     await getNowPlaying()
@@ -31,6 +49,9 @@ const NowPlaying = () => {
   return (
     <PageContainer>
       <PageHeader>Now Playing</PageHeader>
+      <SearchBox
+        onChangeHandler={onSearchChange}
+      />
       <CatalogContainer>
         {!loading ? (
           nowPlayingMovies.map((movie) => (

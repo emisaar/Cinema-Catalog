@@ -81,12 +81,12 @@ const AboutMovie = () => {
 
 
     return (
-        <MainContainer className="show-content">
+        <MainContainer>
             {loading ? (
                 <CircularProgress sx={{ fontSize: 'large' }} />
             ) : (
                 <TopContainer>
-                    <MovieImage className="image-fluid" alt={id} src={poster} />
+                    <MovieImage alt={id} src={poster} />
                     <div>
                         <MovieTitle>{movie.title}</MovieTitle>
                         <MovieButtonsContainer>
@@ -177,7 +177,7 @@ const AboutMovie = () => {
                             <GenreTitle>Genres</GenreTitle>
                             <GenreSpan>
                                 {!loading && movie.genres && movie.genres.map((genre: { id: number; name: string }) => (
-                                    <GenreItem className="show-label-det" key={genre.id}>
+                                    <GenreItem key={genre.id}>
                                         {genre.name}
                                     </GenreItem>
                                 ))}
@@ -185,7 +185,7 @@ const AboutMovie = () => {
                         </GenreContainer>
                     </div>
                 </TopContainer>)}
-            <div className="show-image-detail-12">
+            <div>
                 <MoviesSlider
                     titleShows={'Recommendations'}
                     movieApiUrl={buildUrlRecommended(movieId)}

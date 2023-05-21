@@ -11,14 +11,14 @@ const NowPlaying = () => {
   const [loading, setLoading] = useState(false);
 
   const [searchField, setSearchField] = useState<string>('');
-  const [filteredMovies, setFilteredMonsters] = useState<any[]>([]); // [value, setValue
+  const [filteredMovies, setFilteredMovies] = useState<any[]>([]); // [value, setValue
 
   useEffect(() => {
     const filteredMovies = nowPlayingMovies.filter((movie) => {
       return movie.title.toLowerCase().includes(searchField);
     });
 
-    setFilteredMonsters(filteredMovies);
+    setFilteredMovies(filteredMovies);
   }, [searchField, nowPlayingMovies]);
 
   const onSearchChange = (event: any) => {

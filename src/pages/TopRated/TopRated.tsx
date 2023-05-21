@@ -53,7 +53,7 @@ const TopRated = () => {
       />
       <CatalogContainer>
         {!loading ? (
-          topRatedMovies.map((movie) => (
+          filteredMovies.map((movie) => (
             <MovieCard
               key={movie.id}
               id={movie.id}

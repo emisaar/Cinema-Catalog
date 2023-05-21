@@ -54,7 +54,7 @@ const NowPlaying = () => {
       />
       <CatalogContainer>
         {!loading ? (
-          nowPlayingMovies.map((movie) => (
+          filteredMovies.map((movie) => (
             <MovieCard
               key={movie.id}
               id={movie.id}

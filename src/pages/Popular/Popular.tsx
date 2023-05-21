@@ -42,7 +42,7 @@ const Popular = () => {
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => getPopularMovies(), 10000);
+    setTimeout(() => getPopularMovies(), 1000);
   }, []);
 
   return (

@@ -1,9 +1,8 @@
-import { Home, MyFavorites, NowPlaying, Popular, TopRated } from "pages";
+import { AboutMovie, Home, MyFavorites, NowPlaying, Popular, TopRated } from "pages";
 import { RouteObject, createBrowserRouter } from "react-router-dom";
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
 import { ROUTES } from "./constants";
-import { AboutMovie } from "pages/AboutMovie";
 
 const routes: RouteObject[] = [
     {

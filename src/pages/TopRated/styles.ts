@@ -15,9 +15,10 @@ export const PageHeader = styled.h2`
 `;
 
 export const CatalogContainer = styled.div`
-    width: 85vw;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
+    min-height: 80vh;
+    margin: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 `;

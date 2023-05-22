@@ -1,10 +1,10 @@
 import { MovieCard } from 'components/MovieCard';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import httpInstance from 'services/httpInstance';
 import { buildUrl } from 'utils/api';
-import { CatalogContainer, PageContainer, PageHeader } from './styles';
+import { CatalogContainer, GoHomeLink, NoMovieMessage, PageContainer, PageHeader } from './styles';
 import { CircularProgress } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const MyFavorites = () => {
   const [movies, setMovies] = React.useState<any[]>([]);
@@ -26,25 +26,33 @@ const MyFavorites = () => {
     };
 
     setLoading(true);
-    getUserFavorites();
+    setTimeout(() => getUserFavorites(), 1000);
   }, []);
 
   return (
     <PageContainer>
       <PageHeader>My Favorites</PageHeader>
-      <CatalogContainer>
-        {!loading ? (
-          movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              id={movie.id}
-              path={movie.poster_path}
-              title={movie.title}
-              voteAverage={movie.vote_average}
-              genreId={movie.genre_ids && movie.genre_ids.length > 0 ? movie.genre_ids[0] : null}
-            />
-          ))) : (<CircularProgress />)}
-      </CatalogContainer>
+      {movies.length === 0 && !loading ? (
+        <NoMovieMessage>
+          You have no favorites on your list.
+          <br />
+          <GoHomeLink to={'/'}>Go back to home</GoHomeLink>
+        </NoMovieMessage>
+      ) : (
+        <CatalogContainer>
+          {!loading ? (
+            movies.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                id={movie.id}
+                path={movie.poster_path}
+                title={movie.title}
+                voteAverage={movie.vote_average}
+                genreId={movie.genre_ids && movie.genre_ids.length > 0 ? movie.genre_ids[0] : null}
+              />
+            ))) : (<CircularProgress />)}
+        </CatalogContainer>
+      )}
     </PageContainer>
   );
 };

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const PageContainer = styled.div`
@@ -15,9 +16,25 @@ export const PageHeader = styled.h2`
 `;
 
 export const CatalogContainer = styled.div`
-    width: 85vw;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
+    min-height: 68vh;
+    margin: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+`;
+
+export const NoMovieMessage = styled.h2`
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 50px;
+    min-height: 20vh;
+`;
+
+export const GoHomeLink = styled(Link)`
+    text-decoration: underline;
+    color: #FFD634;
+    font-size: 14px;
 `;

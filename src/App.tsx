@@ -1,10 +1,14 @@
 import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "routes/router";
-import "./App.css";
+import {AppContainer} from "./appStyles";
 
 const App = () => {
-  return <RouterProvider router={router} />
+  return (
+    <AppContainer>
+      <RouterProvider router={router} />
+    </AppContainer>
+  );
 };
 
 export default App;
